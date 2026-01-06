@@ -234,16 +234,29 @@ REGISTER_TEMPLATE = CSS + """
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Register</title></head><body>
 <div class="container"><h1>🇪🇬 Egyptian Authentication</h1><h2>📝 Register New Account</h2>
 {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}{% for category, message in messages %}<div class="alert alert-{{ category }}">{{ message }}</div>{% endfor %}{% endif %}{% endwith %}
-<form method="POST" action="{{ url_for('register') }}">
+<form method="POST" action="{{ url_for('register') }}" id="registerForm">
 <div class="form-group"><label for="national_id">🆔 National ID (14 digits)</label><input type="text" id="national_id" name="national_id" pattern="[0-9]{14}" maxlength="14" required placeholder="29901011234567"><small style="color: #666; font-size: 12px;">Example: 29901011234567</small></div>
 <div class="form-group"><label for="first_name">👤 First Name</label><input type="text" id="first_name" name="first_name" required placeholder="Ahmed"></div>
 <div class="form-group"><label for="last_name">👤 Last Name</label><input type="text" id="last_name" name="last_name" required placeholder="Mohamed"></div>
 <div class="form-group"><label for="email">📧 Email Address</label><input type="email" id="email" name="email" required placeholder="your.email@example.com"></div>
 <div class="form-group"><label for="password">🔒 Password</label><input type="password" id="password" name="password" required placeholder="Create a strong password"></div>
-<button type="submit" class="btn">📧 Send Verification Code</button></form>
-<div class="links">Already have an account? <a href="{{ url_for('login') }}">Login here</a></div></div></body></html>
-"""
+<button type="submit" class="btn" id="submitBtn">📧 Send Verification Code</button></form>
+<div class="links">Already have an account? <a href="{{ url_for('login') }}">Login here</a></div></div>
+<script>
+// Prevent form resubmission on page reload
+if (window.history.replaceState) {
+    window.history.replaceState(null, null, window.location.href);
+}
 
+// Add loading state to button
+document.getElementById('registerForm').addEventListener('submit', function() {
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = '⏳ Sending...';
+});
+</script>
+</body></html>
+"""
 VERIFY_TEMPLATE = CSS + """
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Verify</title></head><body>
 <div class="container"><h1>🇪🇬 Egyptian Authentication</h1><h2>✅ Verify Your Account</h2>
@@ -438,6 +451,7 @@ def logout():
 # Function to run Flask in a separate thread for Jupyter
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
 
 
 
