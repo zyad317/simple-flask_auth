@@ -10,7 +10,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 app = Flask(__name__)
-app.secret_key = secrets.token_hex(32)
+app.secret_key = 'why_always_me_1532694874_fixed_key' #secrets.token_hex(32)
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=24)
 
 government_code = {
@@ -451,6 +451,7 @@ def logout():
 # Function to run Flask in a separate thread for Jupyter
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
 
 
 
