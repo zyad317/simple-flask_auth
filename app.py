@@ -79,8 +79,8 @@ class EgyptNationalID:
         return True        
 
 class EmailConfig:
-    SENDER_EMAIL = os.getenv("EMAIL_ADDRESS", "vcode5359@gmail.com")
-    SENDER_PASSWORD = os.getenv("EMAIL_PASSWORD", "rtuu bobv tpqw awxq")
+    SENDER_EMAIL = os.getenv("EMAIL_ADDRESS", "your_email@gmail.com")
+    SENDER_PASSWORD = os.getenv("EMAIL_PASSWORD", "your_app_password")
     SMTP_SERVER = "smtp.gmail.com"
     SMTP_PORT = 587
 
@@ -451,6 +451,7 @@ def logout():
 # Function to run Flask in a separate thread for Jupyter
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
 
 
 
